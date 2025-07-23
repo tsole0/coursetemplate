@@ -1,8 +1,12 @@
-# LaTeX Class Notes System - Complete Documentation
+# LaTeX Notes System Documentation
+### NOTE: This templated was generated with the use of artificial intelligence and is not wholly my own work.
+The purpose of this project was to set up a sustainable, modular, and most importantly *pretty* system for $$\LaTeX$$. Key features of the project include:
+- Completely PDF/A-3 compliant for universal display
+- Modular style files that simplfiy imports and minimize duplicated code
+- Lightweight, course-unique style files that allow for a common theme but taylored details
+- Tons of built-in math and chemistry quality of life packages that make note-taking efficient and easy-to-remember.
 
-## ✅ **PRODUCTION-READY MODULAR SYSTEM**
-
-A comprehensive, modular LaTeX template system designed for academic note-taking with professional styling, automatic numbering, and subject-specific support. Built with sustainability, maintainability, and traceability in mind.
+WARNING: These templates are intended to be compiled using **LuaLaTeX** and are untested on other distributions. PdfLaTeX is definitely not compatible with the templates, and XeLaTeX perhaps could be, but would most likely require some modifications.
 
 ---
 
