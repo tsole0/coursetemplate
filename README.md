@@ -10,7 +10,7 @@ WARNING: These templates are intended to be compiled using **LuaLaTeX** and are 
 
 ---
 
-## 🏗️ **System Architecture**
+## **System Architecture**
 
 ### **Four-Layer Modular Design**
 
@@ -317,7 +317,7 @@ Maps semantic environments to course-specific names:
 
 ---
 
-## 🎨 **Margin Symbols & Annotations**
+## **Margin Symbols & Annotations**
 
 ### **Built-in Symbol Commands**
 ```latex
@@ -706,7 +706,7 @@ Edit colors in `classnotes-base.sty`:
 
 ---
 
-## 🚀 **Next Steps**
+## **Next Steps**
 
 1. **Start with existing course**: Use `course-orgchem.sty` as template
 2. **Create your course file**: Follow the template in this documentation
