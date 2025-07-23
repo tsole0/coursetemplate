@@ -1,0 +1,151 @@
+\ProvidesPackage{classnotes-math}[2025/07/23 Mathematics support for class notes]
+
+% ============================================================================
+% CLASSNOTES MATHEMATICS MODULE
+% ============================================================================
+% This file provides mathematics-specific packages and environments for
+% class notes. It depends on classnotes-base.sty for the underlying
+% infrastructure.
+%
+% Usage: \usepackage{classnotes-base}
+%        \usepackage{classnotes-math}
+% ============================================================================
+
+\RequirePackage{classnotes-base}
+
+% ============================================================================
+% MATHEMATICS PACKAGES
+% ============================================================================
+
+% Core math packages
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+
+% Additional math symbols and fonts
+\RequirePackage{latexsym}
+\RequirePackage{esint}          % Extended integral symbols
+\RequirePackage{mathrsfs}       % Script fonts
+\RequirePackage{dsfont}         % Double-struck fonts
+
+% Graphics and diagrams
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\RequirePackage{tikz-cd}        % Commutative diagrams
+
+% TikZ libraries commonly used in mathematics
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{matrix}
+
+% Configure pgfplots
+\pgfplotsset{compat=1.18}
+
+% ============================================================================
+% SEMANTIC MATHEMATICS ENVIRONMENTS
+% ============================================================================
+% These provide the mathematical infrastructure without naming
+% The course-specific .sty will define actual theorem/lemma/etc names
+
+% Numbered theorem-like environment (uses base green box)
+\newcounter{mathcounter}[section]
+\renewcommand{\themathcounter}{\thesection.\arabic{mathcounter}}
+
+\newenvironment{mathenv}[2]{
+  \refstepcounter{mathcounter}
+  \begin{basebox}{#1 \themathcounter: #2}{mathenv:\themathcounter}
+}{
+  \end{basebox}
+}
+
+% Unnumbered math environment  
+\newenvironment{mathenvstar}[2]{
+  \begin{basebox}{#1: #2}{}
+}{
+  \end{basebox}
+}
+
+% Formula/equation environment (uses note box)
+\newcounter{formulacounter}[section]
+\renewcommand{\theformulacounter}{\thesection.\arabic{formulacounter}}
+
+\newenvironment{mathformula}[1]{
+  \refstepcounter{formulacounter}
+  \begin{notebox}{Formula \theformulacounter: #1}{formula:\theformulacounter}
+}{
+  \end{notebox}
+}
+
+% Mathematical note environment
+\newenvironment{mathnote}[1][Note]{
+  \begin{notebox}{#1}{}
+}{
+  \end{notebox}
+}
+
+% Mathematical warning environment
+\newenvironment{mathwarning}[1][Warning]{
+  \begin{warnbox}{#1}{}
+}{
+  \end{warnbox}
+}
+
+% ============================================================================
+% MATHEMATICAL UTILITIES
+% ============================================================================
+
+% Common mathematical operators
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\nullity}{nullity}
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\span}{span}
+\DeclareMathOperator{\dim}{dim}
+\DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+
+% Number sets
+\newcommand{\N}{\mathbb{N}}     % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}     % Integers  
+\newcommand{\Q}{\mathbb{Q}}     % Rational numbers
+\newcommand{\R}{\mathbb{R}}     % Real numbers
+\newcommand{\C}{\mathbb{C}}     % Complex numbers
+\newcommand{\F}{\mathbb{F}}     % Fields
+\newcommand{\K}{\mathbb{K}}     % General field
+
+% Common mathematical constructs
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{\left(#1\right)}
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+
+% Derivatives and integrals
+\newcommand{\dd}[1]{\,\mathrm{d}#1}
+\newcommand{\dv}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\integral}[4]{\int_{#1}^{#2} #3 \, \mathrm{d}#4}
+
+% Matrix and vector notation
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\transpose}[1]{#1^{\top}}
+
+% ============================================================================
+% MARGIN SYMBOLS FOR MATHEMATICS
+% ============================================================================
+
+\newcommand{\mathcautionsymbol}{\faExclamationTriangle}
+\newcommand{\importantsymbol}{\faStar}
+\newcommand{\keysymbol}{\faKey}
+\newcommand{\remembersymbol}{\faBrain}
+
+\endinput

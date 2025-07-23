@@ -1,0 +1,177 @@
+\ProvidesPackage{classnotes-chem}[2025/07/23 Chemistry and engineering support for class notes]
+
+% ============================================================================
+% CLASSNOTES CHEMISTRY MODULE  
+% ============================================================================
+% This file provides chemistry and engineering-specific packages and 
+% environments for class notes. It depends on classnotes-base.sty for 
+% the underlying infrastructure.
+%
+% Usage: \usepackage{classnotes-base}
+%        \usepackage{classnotes-chem}
+% ============================================================================
+
+\RequirePackage{classnotes-base}
+
+% ============================================================================
+% CHEMISTRY PACKAGES
+% ============================================================================
+
+% Core chemistry packages
+\RequirePackage{chemfig}        % Chemical structure diagrams
+\RequirePackage{chemmacros}     % Comprehensive chemistry macros
+\RequirePackage{chemformula}    % Chemical formulas
+\RequirePackage{modiagram}      % Molecular orbital diagrams
+
+% Units and measurements
+\RequirePackage{siunitx}        % SI units and scientific notation
+
+% Additional useful packages for engineering
+\RequirePackage{circuitikz}     % Circuit diagrams
+\RequirePackage{pgfplots}       % Data plots and graphs
+
+% ============================================================================
+% CHEMISTRY CONFIGURATION
+% ============================================================================
+
+% Configure siunitx for chemistry
+\sisetup{
+  inter-unit-product = \ensuremath{{}\cdot{}},
+  per-mode = symbol,
+  detect-all
+}
+
+% Configure chemformula
+\setchemformula{
+  format = \normalfont
+}
+
+% ============================================================================
+% SEMANTIC CHEMISTRY ENVIRONMENTS
+% ============================================================================
+% These provide chemistry infrastructure without naming
+% The course-specific .sty will define actual reaction/mechanism/etc names
+
+% Chemical reaction environment (uses base green box)
+\newcounter{chemcounter}[section]
+\renewcommand{\thechemcounter}{\thesection.\arabic{chemcounter}}
+
+\newenvironment{chemenv}[2]{
+  \refstepcounter{chemcounter}
+  \begin{basebox}{#1 \thechemcounter: #2}{chemenv:\thechemcounter}
+}{
+  \end{basebox}
+}
+
+% Unnumbered chemistry environment
+\newenvironment{chemenvstar}[2]{
+  \begin{basebox}{#1: #2}{}
+}{
+  \end{basebox}
+}
+
+% Mechanism environment (uses note box)
+\newcounter{mechanismcounter}[section]
+\renewcommand{\themechanismcounter}{\thesection.\arabic{mechanismcounter}}
+
+\newenvironment{chemmechanism}[1]{
+  \refstepcounter{mechanismcounter}
+  \begin{notebox}{Mechanism \themechanismcounter: #1}{mechanism:\themechanismcounter}
+}{
+  \end{notebox}
+}
+
+% Molecular orbital diagram environment
+\newenvironment{molorbital}[1][Molecular Orbital Diagram]{
+  \begin{notebox}{#1}{}
+}{
+  \end{notebox}
+}
+
+% Safety warning for chemistry
+\newenvironment{chemsafety}[1][Safety Warning]{
+  \begin{warnbox}{#1}{}
+}{
+  \end{warnbox}
+}
+
+% ============================================================================
+% CHEMISTRY UTILITIES AND SHORTCUTS
+% ============================================================================
+
+% Common functional groups
+\newcommand{\hydroxylgroup}{\ch{-OH}}
+\newcommand{\carbonylgroup}{\ch{>C=O}}
+\newcommand{\carboxylgroup}{\ch{-COOH}}
+\newcommand{\aminogroup}{\ch{-NH2}}
+\newcommand{\alkylgroup}{\ch{-R}}
+\newcommand{\phenylgroup}{\ch{-Ph}}
+\newcommand{\benzylgroup}{\ch{-Bn}}
+
+% Common chemical structures
+\newcommand{\methane}{\ch{CH4}}
+\newcommand{\ethane}{\ch{C2H6}}
+\newcommand{\propane}{\ch{C3H8}}
+\newcommand{\butane}{\ch{C4H10}}
+% Note: \water and \ammonia conflict with chemmacros - use \ch{H2O} and \ch{NH3} directly
+\newcommand{\carbondioxide}{\ch{CO2}}
+
+% Benzene ring (simple version)
+\newcommand{\benzenering}{
+  \chemfig{*6(=-=-=-)}
+}
+
+% Arrow shortcuts for reactions
+\newcommand{\reactionarrow}[2][]{\ch{->[#1][#2]}}
+\newcommand{\equilibrium}{\ch{<=>}}
+\newcommand{\mesomeric}{\ch{<->}}
+
+% Common reaction conditions
+\newcommand{\heatcondition}{\Delta}
+\newcommand{\catalyst}[1]{\ch{->[#1]}}
+% Note: \solvent conflicts with some packages - use inline definitions
+
+% Oxidation states and charges
+\newcommand{\oxstate}[1]{\overset{#1}{\text{•}}}
+\newcommand{\formalcharge}[1]{\overset{#1}{\text{○}}}
+
+% ============================================================================
+% ENGINEERING UTILITIES  
+% ============================================================================
+
+% Unit shortcuts for common engineering quantities
+\newcommand{\meter}{\si{\meter}}
+\newcommand{\kilogram}{\si{\kilogram}}
+\newcommand{\second}{\si{\second}}
+\newcommand{\ampere}{\si{\ampere}}
+\newcommand{\kelvin}{\si{\kelvin}}
+\newcommand{\mole}{\si{\mole}}
+\newcommand{\candela}{\si{\candela}}
+
+% Derived units
+\newcommand{\newton}{\si{\newton}}
+\newcommand{\pascal}{\si{\pascal}}
+\newcommand{\joule}{\si{\joule}}
+\newcommand{\watt}{\si{\watt}}
+\newcommand{\volt}{\si{\volt}}
+\newcommand{\ohm}{\si{\ohm}}
+\newcommand{\farad}{\si{\farad}}
+\newcommand{\henry}{\si{\henry}}
+
+% Common concentrations and rates
+\newcommand{\molarity}{\si{\molar}}
+\newcommand{\molality}{\si{\molal}}
+\newcommand{\moleflowrate}{\si{\mole\per\second}}
+\newcommand{\volumeflowrate}{\si{\liter\per\second}}
+
+% ============================================================================
+% MARGIN SYMBOLS FOR CHEMISTRY
+% ============================================================================
+
+\newcommand{\chemsafetysymbol}{\faRadiation}
+\newcommand{\toxicsymbol}{\faSkull}
+\newcommand{\explosivesymbol}{\faBomb}
+\newcommand{\corrosivesymbol}{\faFlask}
+\newcommand{\environmentalsymbol}{\faLeaf}
+
+\endinput

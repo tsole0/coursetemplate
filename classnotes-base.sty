@@ -1,0 +1,216 @@
+\ProvidesPackage{classnotes-base}[2025/07/23 Base class notes formatting system]
+
+% ============================================================================
+% CLASSNOTES BASE STYLE - Core Infrastructure
+% ============================================================================
+% This file provides the fundamental infrastructure for class notes:
+% - Document formatting and geometry
+% - Base box environments (semantic, no subject-specific names)
+% - Header/footer system
+% - Margin annotation system
+% - Page layout and typography
+%
+% This file should NOT define subject-specific environments or package imports.
+% Those belong in the subject-specific .sty files.
+% ============================================================================
+
+\RequirePackage{xkeyval}
+\RequirePackage{ifthen}
+
+% ============================================================================
+% CORE FORMATTING PACKAGES
+% ============================================================================
+
+% Typography and layout
+\RequirePackage{geometry}
+\RequirePackage[tracking=true]{microtype}
+\RequirePackage{graphicx}
+
+% Color and boxes (xcolor may already be loaded by pdfx)
+\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+\RequirePackage[theorems,skins]{tcolorbox}
+
+% Headers and footers
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+
+% Margin notes and symbols
+\RequirePackage{marginnote}
+\RequirePackage{fontawesome5}
+
+% Hyperref setup (may already be loaded by pdfx)
+\@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}
+
+% ============================================================================
+% COLOR DEFINITIONS
+% ============================================================================
+
+% Primary theme colors
+\definecolor{notegreen}{RGB}{34, 139, 34}     % Forest green for main boxes
+\definecolor{lightgreen}{RGB}{240, 255, 240}  % Very light green background
+\definecolor{bordergreen}{RGB}{46, 125, 50}   % Slightly darker border
+\definecolor{titlegreen}{RGB}{27, 94, 32}     % Dark green for titles
+
+% Secondary colors
+\definecolor{warningred}{RGB}{211, 47, 47}    % Red for warnings
+\definecolor{lightred}{RGB}{255, 245, 245}    % Light red background
+\definecolor{noteblue}{RGB}{25, 118, 210}     % Blue for notes
+\definecolor{lightblue}{RGB}{240, 248, 255}   % Light blue background
+
+% ============================================================================
+% SEMANTIC BOX DEFINITIONS
+% ============================================================================
+% These provide the visual styling without subject-specific names
+% Course-specific .sty files will define named environments using these
+
+% Primary content box (green theme)
+\newtcolorbox{basebox}[3][]{
+  enhanced,
+  colback=lightgreen,
+  colframe=bordergreen,
+  coltitle=white,
+  colbacktitle=titlegreen,
+  fonttitle=\bfseries,
+  rounded corners,
+  drop shadow,
+  attach boxed title to top left={yshift=-2mm, xshift=3mm},
+  boxed title style={rounded corners=north},
+  top=5mm,
+  #1,
+  title={#2},
+  label={#3}
+}
+
+% Secondary box (blue theme for notes/remarks)
+\newtcolorbox{notebox}[3][]{
+  enhanced,
+  colback=lightblue,
+  colframe=noteblue,
+  coltitle=white,
+  colbacktitle=noteblue,
+  fonttitle=\bfseries,
+  rounded corners,
+  attach boxed title to top left={yshift=-2mm, xshift=3mm},
+  boxed title style={rounded corners=north},
+  top=5mm,
+  #1,
+  title={#2},
+  label={#3}
+}
+
+% Warning box (red theme)
+\newtcolorbox{warnbox}[3][]{
+  enhanced,
+  colback=lightred,
+  colframe=warningred,
+  coltitle=white,
+  colbacktitle=warningred,
+  fonttitle=\bfseries,
+  rounded corners,
+  attach boxed title to top left={yshift=-2mm, xshift=3mm},
+  boxed title style={rounded corners=north},
+  top=5mm,
+  #1,
+  title={#2},
+  label={#3}
+}
+
+% Simple proof environment (no box, just formatting)
+\newenvironment{baseproof}[1][Proof]
+{
+  \begin{quote}
+  \textbf{#1:} \itshape
+}
+{
+  \hfill $\square$
+  \end{quote}
+}
+
+% ============================================================================
+% SEMANTIC MARGIN ANNOTATION SYSTEM
+% ============================================================================
+
+% Base margin note command (takes icon and optional offset)
+\newcommand{\marginicon}[2][0cm]{%
+  \marginnote{\textcolor{warningred}{\large #2}}[#1]%
+}
+
+% Common margin symbols (semantic names)
+\newcommand{\cautionsymbol}{\faExclamationTriangle}
+\newcommand{\notesymbol}{\faInfoCircle}
+\newcommand{\warningsymbol}{\faExclamationCircle}
+\newcommand{\tipsymbol}{\faLightbulb}
+\newcommand{\questionsymbol}{\faQuestionCircle}
+
+% ============================================================================
+% HEADER AND FOOTER SYSTEM
+% ============================================================================
+
+% Variables for course information
+\def\@coursename{Course Name}
+\def\@studentname{Student Name}
+\def\@coursedate{\today}
+
+% Command to set up course information
+\newcommand{\setupnotesheader}[3]{
+  \def\@coursename{#1}
+  \def\@studentname{#2}
+  \def\@coursedate{#3}
+  \setnotesheader
+}
+
+% Internal command to configure headers/footers
+\newcommand{\setnotesheader}{
+  \pagestyle{fancy}
+  \fancyhf{}
+  \fancyhead[L]{\textbf{\@coursename}}
+  \fancyhead[C]{\@studentname}
+  \fancyhead[R]{\@coursedate}
+  \fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% ============================================================================
+% TITLE PAGE SYSTEM
+% ============================================================================
+
+\newcommand{\notestitlepage}{
+  \begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\huge\bfseries \@coursename \par}
+    \vspace{1cm}
+    {\Large Class Notes \par}
+    \vspace{2cm}
+    
+    {\large \@studentname \par}
+    \vspace{0.5cm}
+    {\large \@coursedate \par}
+    
+    \vfill
+    
+    {\small Generated with \LaTeX \par}
+  \end{titlepage}
+  \setcounter{page}{1}
+}
+
+% ============================================================================
+% UTILITY COMMANDS
+% ============================================================================
+
+% Command to start a new section with optional margin note
+\newcommand{\newsectionwithicon}[3][]{
+  \section{#2}
+  \ifthenelse{\equal{#1}{}}{}{\marginicon{#1}}
+  #3
+}
+
+% Command for inline highlighting
+\newcommand{\highlight}[1]{\colorbox{yellow!30}{#1}}
+
+% Command for inline code/formulas
+\newcommand{\inlinecode}[1]{\texttt{\colorbox{gray!10}{#1}}}
+
+\endinput

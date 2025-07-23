@@ -1,0 +1,183 @@
+\ProvidesPackage{course-orgchem}[2025/07/23 Organic Chemistry I specific definitions]
+
+% ============================================================================
+% COURSE-SPECIFIC DEFINITIONS: ORGANIC CHEMISTRY I
+% ============================================================================
+% This lightweight file defines the actual named environments and symbols
+% used in this specific course. It uses the semantic infrastructure from
+% the base and subject-specific modules.
+%
+% Course: Organic Chemistry I  
+% Instructor: [To be filled]
+% Semester: Fall 2025
+%
+% Dependencies: classnotes-base.sty, classnotes-chem.sty
+% ============================================================================
+
+\RequirePackage{classnotes-base}
+\RequirePackage{classnotes-math}
+\RequirePackage{classnotes-chem}
+
+% ============================================================================
+% COURSE-SPECIFIC THEOREM-LIKE ENVIRONMENTS
+% ============================================================================
+% These map semantic environments to course-specific names
+
+% Mathematical/theoretical content
+\newenvironment{theorem}[1]{
+  \begin{mathenv}{Theorem}{#1}
+}{
+  \end{mathenv}
+}
+
+\newenvironment{definition}[1]{
+  \begin{chemenv}{Definition}{#1}
+}{
+  \end{chemenv}
+}
+
+\newenvironment{lemma}[1]{
+  \begin{mathenv}{Lemma}{#1}
+}{
+  \end{mathenv}
+}
+
+\newenvironment{corollary}[1]{
+  \begin{mathenv}{Corollary}{#1}
+}{
+  \end{mathenv}
+}
+
+% Examples and applications
+\newenvironment{example}[1][Example]{
+  \begin{chemenv}{Example}{#1}
+}{
+  \end{chemenv}
+}
+
+% Proof environment
+\newenvironment{proof}[1][Proof]{
+  \begin{baseproof}[#1]
+}{
+  \end{baseproof}
+}
+
+% ============================================================================
+% CHEMISTRY-SPECIFIC ENVIRONMENTS
+% ============================================================================
+
+% Chemical reactions
+\newenvironment{chemreaction}[1][General Reaction]{
+  \begin{chemenv}{Reaction}{#1}
+}{
+  \end{chemenv}
+}
+
+% Reaction mechanisms
+\newenvironment{mechanism}[1][General Mechanism]{
+  \begin{chemmechanism}{#1}
+}{
+  \end{chemmechanism}
+}
+
+% Molecular orbital diagrams  
+% Note: \modiagram conflicts with modiagram package - use different name
+\newenvironment{modagram}[1][Molecular Orbital Diagram]{
+  \begin{molorbital}[#1]
+}{
+  \end{molorbital}
+}
+
+% Formulas and equations
+\newenvironment{formula}[1][General Formula]{
+  \begin{mathformula}{#1}
+}{
+  \end{mathformula}
+}
+
+% ============================================================================
+% NOTE AND WARNING ENVIRONMENTS
+% ============================================================================
+
+% General notes
+\newenvironment{note}[1][Note]{
+  \begin{mathnote}[#1]
+}{
+  \end{mathnote}
+}
+
+% Safety warnings
+\newenvironment{warning}[1][Warning]{
+  \begin{chemsafety}[#1]
+}{
+  \end{chemsafety}
+}
+
+% ============================================================================
+% MARGIN SYMBOLS FOR THIS COURSE
+% ============================================================================
+
+% General caution (reuses base functionality)
+\newcommand{\caution}[1][0cm]{
+  \marginicon[#1]{\cautionsymbol}
+}
+
+% Course-specific margin notes
+\newcommand{\cautionnote}[2][0cm]{
+  \marginicon[#1]{\cautionsymbol}
+  \marginnote{\small\textit{#2}}[#1]
+}
+
+\newcommand{\safetynote}[2][0cm]{
+  \marginicon[#1]{\chemsafetysymbol}
+  \marginnote{\small\textcolor{warningred}{\textbf{Safety:} #2}}[#1]
+}
+
+\newcommand{\importantnote}[2][0cm]{
+  \marginicon[#1]{\importantsymbol}
+  \marginnote{\small\textbf{Key:} #2}[#1]
+}
+
+\newcommand{\remembernote}[2][0cm]{
+  \marginicon[#1]{\remembersymbol}
+  \marginnote{\small\textit{Remember:} #2}[#1]
+}
+
+% ============================================================================
+% COURSE-SPECIFIC SHORTCUTS
+% ============================================================================
+
+% Common organic chemistry abbreviations  
+\newcommand{\Et}{\ch{Et}}          % Ethyl
+\newcommand{\Me}{\ch{Me}}          % Methyl  
+% Note: \Pr conflicts with existing commands, use \ch{Pr} directly
+\newcommand{\Bu}{\ch{Bu}}          % Butyl
+\newcommand{\Ph}{\ch{Ph}}          % Phenyl
+\newcommand{\Bn}{\ch{Bn}}          % Benzyl
+\newcommand{\Ac}{\ch{Ac}}          % Acetyl
+\newcommand{\Ts}{\ch{Ts}}          % Tosyl
+\newcommand{\Ms}{\ch{Ms}}          % Mesyl
+
+% Common reagents and conditions
+\newcommand{\THF}{\ch{THF}}
+\newcommand{\DCM}{\ch{CH2Cl2}}
+\newcommand{\DMSO}{\ch{DMSO}}
+\newcommand{\DMF}{\ch{DMF}}
+\newcommand{\EtOH}{\ch{EtOH}}
+\newcommand{\MeOH}{\ch{MeOH}}
+
+% Reaction arrows with conditions
+\newcommand{\heatarrow}{\ch{->[\heatcondition]}}
+\newcommand{\acidarrow}{\ch{->[H+]}}
+\newcommand{\basearrow}{\ch{->[OH-]}}
+
+% ============================================================================
+% COURSE INFORMATION SETUP
+% ============================================================================
+
+% Convenience command to set up this course
+\newcommand{\setuporgchem}[2]{
+  \setupnotesheader{Organic Chemistry I}{#1}{#2}
+}
+
+\endinput

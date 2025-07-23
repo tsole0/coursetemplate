@@ -1,0 +1,114 @@
+\documentclass[12pt, a4paper]{article}
+
+% ============================================================================
+% SIMPLE MODULAR CLASS NOTES EXAMPLE - PDF/A-3u COMPLIANT
+% ============================================================================
+% This demonstrates the new modular architecture with PDF/A compliance
+% ============================================================================
+
+% PDF/A compliance - MUST be loaded first (includes xcolor and hyperref)
+\usepackage[a-3u]{pdfx}
+
+% Font setup for PDF/A compliance
+\usepackage{fontspec}
+\setmainfont{Charis SIL}  % PDF/A compliant Unicode font
+
+% Essential packages
+\usepackage{geometry}
+\usepackage[tracking=true]{microtype}
+\usepackage{graphicx}
+
+% Load our modular class notes system
+\usepackage{course-orgchem}
+
+% Page geometry with wider margins for caution icons
+\geometry{
+  left=1.2in,
+  right=1in,
+  top=1.2in,
+  bottom=1.2in,
+  marginparwidth=1in,
+  headheight=15pt
+}
+
+% Hyperref is already loaded by pdfx, just configure it
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  pdfpagemode=UseOutlines,
+  bookmarksopen=true
+}
+
+% Setup course-specific header
+\setuporgchem{Name Here}{Fall 2025}
+
+\begin{document}
+
+\notestitlepage
+\tableofcontents
+\newpage
+
+\section{Basic Concepts}
+
+\begin{definition}{Functional Group}
+A functional group is a specific arrangement of atoms that gives a molecule its characteristic chemical properties.
+\end{definition}
+
+\begin{example}[Common Functional Groups]
+Key functional groups in organic chemistry:
+\begin{itemize}
+\item Alcohol: \hydroxylgroup
+\item Ketone: \carbonylgroup  
+\item Carboxylic acid: \carboxylgroup
+\item Amine: \aminogroup
+\end{itemize}
+\end{example}
+
+\caution[0.5cm] Always identify functional groups first when analyzing a molecule!
+
+\section{Chemical Reactions}
+
+\begin{chemreaction}[Substitution]
+Nucleophilic substitution with ethyl bromide:
+\begin{center}
+\ch{OH- + CH3CH2Br -> CH3CH2OH + Br-}
+\end{center}
+\end{chemreaction}
+
+\begin{warning}[Laboratory Safety]
+Always follow proper safety protocols when working with organic halides.
+\end{warning}
+
+\section{Basic Theory}
+
+\begin{theorem}{VSEPR Theory}
+Valence Shell Electron Pair Repulsion theory predicts molecular geometry based on minimizing electron pair repulsion around a central atom.
+\end{theorem}
+
+\begin{formula}[Bond Angles]
+Common bond angles:
+\begin{align}
+\text{Tetrahedral} &: 109.5° \\
+\text{Trigonal planar} &: 120° \\
+\text{Linear} &: 180°
+\end{align}
+\end{formula}
+
+\section{Problem-Solving Strategy}
+
+\begin{note}[Systematic Approach]
+When solving organic chemistry problems:
+\begin{enumerate}
+\item Identify all functional groups
+\item Determine the reaction type
+\item Consider stereochemistry
+\item Check your mechanism
+\item Verify your final answer
+\end{enumerate}
+\end{note}
+
+\marginicon[0.5cm]{\remembersymbol} Practice makes perfect in organic chemistry!
+
+\end{document}
